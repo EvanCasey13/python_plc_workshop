@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ lesson.title }} - Red Hat Python Workshop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='images/redhat-logo.svg') }}" alt="Red Hat" class="logo-img">
+                    <span>Python Workshop</span>
+                </a>
+            </div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/reference">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="lesson-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h3>Lessons</h3>
+            {% for mod_id, mod in all_lessons.items() %}
+            <div class="sidebar-module">
+                <h4>{{ mod.title }}</h4>
+                <ul>
+                    {% for l in mod.lessons %}
+                    <li class="{% if l.id == lesson.id %}active{% endif %}">
+                        <a href="/lesson/{{ mod_id }}/{{ l.id }}">{{ l.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </aside>
+
+        <!-- Main content -->
+        <main class="lesson-content">
+            <div class="lesson-header">
+                <span class="breadcrumb">{{ module_title }}</span>
+                <h2>{{ lesson.title }}</h2>
+                <p class="description">{{ lesson.description }}</p>
+            </div>
+
+            <div class="code-section">
+                <h3>Example Code</h3>
+                <div class="editor-container">
+                    <textarea id="code-editor" class="code-editor">{{ lesson.content }}</textarea>
+                    <div class="editor-controls">
+                        <button id="run-btn" class="btn btn-primary">Run Code</button>
+                        <button id="reset-btn" class="btn btn-secondary">Reset</button>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <h4>Output</h4>
+                    <pre id="output" class="output-box">Click "Run Code" to see the output...</pre>
+                </div>
+            </div>
+
+            {% if lesson.exercises %}
+            <div class="exercises-section">
+                <h3>Exercises</h3>
+                <p>Try these exercises to practice what you learned:</p>
+                <ol class="exercise-list">
+                    {% for exercise in lesson.exercises %}
+                    <li>
+                        <p class="exercise-prompt">{{ exercise.prompt }}</p>
+                        <details>
+                            <summary>Hint</summary>
+                            <code>{{ exercise.hint }}</code>
+                        </details>
+                    </li>
+                    {% endfor %}
+                </ol>
+
+                <div class="scratch-pad">
+                    <h4>Scratch Pad - Try Your Code Here</h4>
+                    <textarea id="scratch-editor" class="code-editor"># Write your exercise solutions here
+</textarea>
+                    <div class="editor-controls">
+                        <button id="run-scratch-btn" class="btn btn-primary">Run</button>
+                        <button id="clear-scratch-btn" class="btn btn-secondary">Clear</button>
+                    </div>
+                    <pre id="scratch-output" class="output-box">Output will appear here...</pre>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Navigation -->
+            <div class="lesson-nav">
+                {% set prev_lesson = None %}
+                {% set next_lesson = None %}
+                {% set found = False %}
+                {% for mod_id, mod in all_lessons.items() %}
+                    {% for l in mod.lessons %}
+                        {% if found and not next_lesson %}
+                            {% set next_lesson = {'module': mod_id, 'lesson': l} %}
+                        {% endif %}
+                        {% if l.id == lesson.id %}
+                            {% set found = True %}
+                        {% endif %}
+                        {% if not found %}
+                            {% set prev_lesson = {'module': mod_id, 'lesson': l} %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+
+                <a href="/" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const originalCode = {{ lesson.content | tojson }};
+
+        // Run main code
+        document.getElementById('run-btn').addEventListener('click', async () => {
+            const code = document.getElementById('code-editor').value;
+            const output = document.getElementById('output');
+            output.textContent = 'Running...';
+
+            try {
+                const response = await fetch('/run', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({code: code})
+                });
+                const result = await response.json();
+
+                if (result.error) {
+                    output.textContent = 'Error: ' + result.error;
+                    output.classList.add('error');
+                } else {
+                    output.textContent = result.output || '(No output)';
+                    output.classList.remove('error');
+                }
+            } catch (e) {
+                output.textContent = 'Error connecting to server';
+                output.classList.add('error');
+            }
+        });
+
+        // Reset code
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            document.getElementById('code-editor').value = originalCode;
+            document.getElementById('output').textContent = 'Code reset. Click "Run Code" to see the output...';
+        });
+
+        // Run scratch pad code
+        document.getElementById('run-scratch-btn')?.addEventListener('click', async () => {
+            const code = document.getElementById('scratch-editor').value;
+            const output = document.getElementById('scratch-output');
+            output.textContent = 'Running...';
+
+            try {
+                const response = await fetch('/run', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({code: code})
+                });
+                const result = await response.json();
+
+                if (result.error) {
+                    output.textContent = 'Error: ' + result.error;
+                    output.classList.add('error');
+                } else {
+                    output.textContent = result.output || '(No output)';
+                    output.classList.remove('error');
+                }
+            } catch (e) {
+                output.textContent = 'Error connecting to server';
+                output.classList.add('error');
+            }
+        });
+
+        // Clear scratch pad
+        document.getElementById('clear-scratch-btn')?.addEventListener('click', () => {
+            document.getElementById('scratch-editor').value = '# Write your code here\n';
+            document.getElementById('scratch-output').textContent = 'Output will appear here...';
+        });
+
+        // Tab key support in textareas
+        document.querySelectorAll('.code-editor').forEach(editor => {
+            editor.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const start = editor.selectionStart;
+                    const end = editor.selectionEnd;
+                    editor.value = editor.value.substring(0, start) + '    ' + editor.value.substring(end);
+                    editor.selectionStart = editor.selectionEnd = start + 4;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

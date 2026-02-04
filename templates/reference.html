@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Reference - Red Hat Python Workshop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='images/redhat-logo.svg') }}" alt="Red Hat" class="logo-img">
+                    <span>Python Workshop</span>
+                </a>
+            </div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/reference" class="active">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container reference-page">
+        <h2>Python Cheat Sheet</h2>
+        <p>Forgot how to do something? Look it up here.</p>
+
+        <div class="reference-grid">
+            <!-- Variables & Data Types -->
+            <section class="ref-card">
+                <h3>Variables & Data Types</h3>
+                <pre><code># Variables
+name = "Alice"      # string
+age = 20            # integer
+gpa = 3.75          # float
+active = True       # boolean
+
+# Type conversion
+int("42")           # string to int
+float("3.14")       # string to float
+str(100)            # number to string
+
+# Check type
+type(variable)</code></pre>
+            </section>
+
+            <!-- Operators -->
+            <section class="ref-card">
+                <h3>Operators</h3>
+                <pre><code># Arithmetic
++   # addition
+-   # subtraction
+*   # multiplication
+/   # division
+//  # floor division
+%   # modulo (remainder)
+**  # exponent
+
+# Comparison
+==  # equal
+!=  # not equal
+<   # less than
+>   # greater than
+<=  # less or equal
+>=  # greater or equal
+
+# Logical
+and, or, not</code></pre>
+            </section>
+
+            <!-- Strings -->
+            <section class="ref-card">
+                <h3>Strings</h3>
+                <pre><code># Creating strings
+s = "Hello"
+s = 'Hello'
+s = """Multi
+line"""
+
+# f-strings (formatting)
+f"Name: {name}, Age: {age}"
+
+# Common methods
+s.lower()           # lowercase
+s.upper()           # uppercase
+s.strip()           # remove whitespace
+s.split()           # split into list
+s.replace("a", "b") # replace
+len(s)              # length
+
+# Indexing
+s[0]    # first char
+s[-1]   # last char
+s[1:4]  # slice</code></pre>
+            </section>
+
+            <!-- If Statements -->
+            <section class="ref-card">
+                <h3>If Statements</h3>
+                <pre><code>if condition:
+    # code
+elif another_condition:
+    # code
+else:
+    # code
+
+# Examples
+if age >= 18:
+    print("Adult")
+
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+else:
+    grade = "C"
+
+# Combining conditions
+if age >= 18 and has_id:
+    print("OK")</code></pre>
+            </section>
+
+            <!-- For Loops -->
+            <section class="ref-card">
+                <h3>For Loops</h3>
+                <pre><code># Range
+for i in range(5):      # 0,1,2,3,4
+    print(i)
+
+for i in range(1, 6):   # 1,2,3,4,5
+    print(i)
+
+for i in range(0, 10, 2): # 0,2,4,6,8
+    print(i)
+
+# Iterate over list
+for item in my_list:
+    print(item)
+
+# With index
+for i, item in enumerate(my_list):
+    print(i, item)
+
+# Loop control
+break     # exit loop
+continue  # skip to next</code></pre>
+            </section>
+
+            <!-- While Loops -->
+            <section class="ref-card">
+                <h3>While Loops</h3>
+                <pre><code>while condition:
+    # code
+    # update condition!
+
+# Example: countdown
+count = 5
+while count > 0:
+    print(count)
+    count -= 1
+
+# Example: input validation
+while True:
+    value = input("Enter: ")
+    if value == "quit":
+        break</code></pre>
+            </section>
+
+            <!-- Lists -->
+            <section class="ref-card">
+                <h3>Lists</h3>
+                <pre><code># Creating
+nums = [1, 2, 3, 4, 5]
+mixed = [1, "two", 3.0]
+
+# Accessing
+nums[0]     # first
+nums[-1]    # last
+nums[1:3]   # slice
+
+# Modifying
+nums.append(6)      # add to end
+nums.insert(0, 0)   # insert at index
+nums.remove(3)      # remove by value
+nums.pop()          # remove last
+nums.pop(0)         # remove by index
+
+# Operations
+len(nums)           # length
+sum(nums)           # sum
+max(nums)           # maximum
+min(nums)           # minimum
+sorted(nums)        # sorted copy
+nums.sort()         # sort in place</code></pre>
+            </section>
+
+            <!-- Dictionaries -->
+            <section class="ref-card">
+                <h3>Dictionaries</h3>
+                <pre><code># Creating
+person = {
+    "name": "Alice",
+    "age": 20
+}
+
+# Accessing
+person["name"]
+person.get("name")
+person.get("email", "N/A")
+
+# Modifying
+person["age"] = 21      # update
+person["city"] = "NYC"  # add
+del person["city"]      # delete
+
+# Looping
+for key in person:
+    print(key)
+
+for value in person.values():
+    print(value)
+
+for key, val in person.items():
+    print(key, val)</code></pre>
+            </section>
+
+            <!-- Functions -->
+            <section class="ref-card">
+                <h3>Functions</h3>
+                <pre><code># Basic function
+def greet():
+    print("Hello!")
+
+# With parameters
+def greet(name):
+    print(f"Hello, {name}!")
+
+# With return value
+def add(a, b):
+    return a + b
+
+# Default parameters
+def greet(name, msg="Hello"):
+    print(f"{msg}, {name}!")
+
+# Multiple returns
+def stats(nums):
+    return min(nums), max(nums)
+
+low, high = stats([1,2,3])
+
+# Variable arguments
+def sum_all(*nums):
+    return sum(nums)</code></pre>
+            </section>
+
+            <!-- Common Patterns -->
+            <section class="ref-card">
+                <h3>Common Patterns</h3>
+                <pre><code># Sum numbers
+total = 0
+for num in numbers:
+    total += num
+
+# Find maximum
+max_val = numbers[0]
+for num in numbers:
+    if num > max_val:
+        max_val = num
+
+# Count occurrences
+count = 0
+for item in items:
+    if item == target:
+        count += 1
+
+# Build a list
+result = []
+for item in items:
+    result.append(item * 2)
+
+# List comprehension
+result = [x * 2 for x in items]
+
+# Filter items
+evens = [x for x in nums if x % 2 == 0]</code></pre>
+            </section>
+
+            <!-- AI Basics -->
+            <section class="ref-card">
+                <h3>AI Basics</h3>
+                <pre><code># AI = Scoring + Deciding
+def rate_something(factors):
+    score = 0
+    for factor in factors:
+        if factor:
+            score += 10
+    return score
+
+# Pattern matching
+if "hello" in message.lower():
+    return "Hi there!"
+
+# Random choices
+import random
+word = random.choice(words)
+
+# Checking matches
+matches = 0
+for trait in traits:
+    if trait == expected:
+        matches += 1</code></pre>
+            </section>
+
+            <!-- Pixel Art -->
+            <section class="ref-card">
+                <h3>Pixel Art (2D Lists)</h3>
+                <pre><code># Images are grids of numbers!
+picture = [
+    [0, 1, 0],
+    [1, 1, 1],
+    [0, 1, 0],
+]
+
+# Draw it
+def draw(grid):
+    for row in grid:
+        line = ""
+        for pixel in row:
+            if pixel == 1:
+                line += "##"
+            else:
+                line += "  "
+        print(line)
+
+draw(picture)
+# Output:
+#   ##
+# ######
+#   ##</code></pre>
+            </section>
+
+            <!-- Simple Chatbot -->
+            <section class="ref-card">
+                <h3>Simple Chatbot</h3>
+                <pre><code>import random
+
+def reply(message):
+    msg = message.lower()
+
+    if "hello" in msg:
+        return "Hi there!"
+
+    if "joke" in msg:
+        jokes = [
+            "Why do programmers...",
+            "What's a computer's...",
+        ]
+        return random.choice(jokes)
+
+    if "bye" in msg:
+        return "Goodbye!"
+
+    # Default response
+    return "Tell me more!"
+
+# Use it
+response = reply("Hello!")
+print(response)  # Hi there!</code></pre>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>Red Hat Python Workshop</p>
+    </footer>
+</body>
+</html>
