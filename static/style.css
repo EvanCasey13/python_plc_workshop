@@ -1,0 +1,786 @@
+/*
+ * Red Hat Brand Guidelines CSS
+ * Based on Red Hat Design System
+ * https://www.patternfly.org/ (Red Hat's design system)
+ */
+
+:root {
+    /* ========================================
+     * RED HAT OFFICIAL BRAND COLORS
+     * ======================================== */
+
+    /* Primary Brand Colors */
+    --rh-red: #EE0000;
+    --rh-red-dark: #A60000;
+    --rh-black: #151515;
+    --rh-white: #FFFFFF;
+
+    /* Gray Palette (PatternFly) */
+    --rh-gray-50: #FAFAFA;
+    --rh-gray-100: #F5F5F5;
+    --rh-gray-200: #D2D2D2;
+    --rh-gray-300: #B8BBBE;
+    --rh-gray-400: #8A8D90;
+    --rh-gray-500: #6A6E73;
+    --rh-gray-600: #4F5255;
+    --rh-gray-700: #3C3F42;
+    --rh-gray-800: #21252B;
+    --rh-gray-900: #151515;
+
+    /* Status Colors */
+    --rh-success: #3E8635;
+    --rh-success-light: #92D48E;
+    --rh-warning: #F0AB00;
+    --rh-warning-light: #F9E0A2;
+    --rh-danger: #C9190B;
+    --rh-danger-light: #E0B0B0;
+    --rh-info: #2B9AF3;
+    --rh-info-light: #73BCF7;
+
+    /* Link Colors */
+    --rh-link: #0066CC;
+    --rh-link-hover: #004080;
+    --rh-link-visited: #6753AC;
+
+    /* ========================================
+     * APPLIED THEME VARIABLES
+     * ======================================== */
+    --background-color: var(--rh-gray-100);
+    --surface-color: var(--rh-white);
+    --text-primary: var(--rh-gray-900);
+    --text-secondary: var(--rh-gray-500);
+    --border-color: var(--rh-gray-200);
+    --code-bg: var(--rh-gray-900);
+    --code-text: var(--rh-gray-200);
+
+    /* Spacing (8px base grid) */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+
+    /* Border Radius */
+    --radius-sm: 3px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+}
+
+/* ========================================
+ * RED HAT FONTS
+ * ======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700&family=Red+Hat+Mono:wght@400;500&family=Red+Hat+Text:wght@400;500;600&display=swap');
+
+/* ========================================
+ * RESET & BASE STYLES
+ * ======================================== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Red Hat Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text-primary);
+    background-color: var(--background-color);
+    background-image:
+        linear-gradient(135deg, rgba(238, 0, 0, 0.03) 0%, transparent 50%),
+        linear-gradient(225deg, rgba(238, 0, 0, 0.02) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L30 60M0 30L60 30' stroke='%23E0E0E0' stroke-width='0.5' fill='none' opacity='0.3'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Red Hat Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--text-primary);
+}
+
+a {
+    color: var(--rh-link);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--rh-link-hover);
+    text-decoration: underline;
+}
+
+a:focus {
+    outline: 2px solid var(--rh-link);
+    outline-offset: 2px;
+}
+
+code, pre {
+    font-family: 'Red Hat Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+/* ========================================
+ * HEADER (Global Navigation)
+ * ======================================== */
+header {
+    background-color: var(--rh-black);
+    color: var(--rh-white);
+    padding: var(--space-md) var(--space-xl);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    color: var(--rh-white);
+    font-family: 'Red Hat Display', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.logo a:hover {
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 36px;
+    width: auto;
+}
+
+/* Navigation Links */
+header ul {
+    list-style: none;
+    display: flex;
+    gap: var(--space-sm);
+}
+
+header ul a {
+    color: var(--rh-white);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.15s ease;
+}
+
+header ul a:hover,
+header ul a.active {
+    background-color: var(--rh-red);
+    text-decoration: none;
+}
+
+/* ========================================
+ * MAIN CONTAINER
+ * ======================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-xl);
+}
+
+/* ========================================
+ * HERO SECTION
+ * ======================================== */
+.hero {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-xl);
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-xl);
+    box-shadow: 0 4px 12px rgba(21, 21, 21, 0.1);
+    position: relative;
+    overflow: hidden;
+    border-top: 4px solid var(--rh-red);
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(238, 0, 0, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(238, 0, 0, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero .hero-logo {
+    height: 64px;
+    width: auto;
+    margin-bottom: var(--space-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.hero h2 {
+    font-size: 1.75rem;
+    font-weight: 500;
+    margin-bottom: var(--space-md);
+    color: var(--text-primary);
+    position: relative;
+    z-index: 1;
+}
+
+.hero p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto var(--space-sm);
+    position: relative;
+    z-index: 1;
+}
+
+/* Red Hat Badge */
+.redhat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background-color: var(--rh-red);
+    color: var(--rh-white);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ========================================
+ * MODULE CARDS
+ * ======================================== */
+.modules {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.module-card {
+    background-color: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    border-left: 4px solid var(--rh-red);
+    box-shadow: 0 1px 2px rgba(21, 21, 21, 0.08);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.module-card:hover {
+    box-shadow: 0 4px 8px rgba(21, 21, 21, 0.12);
+    transform: translateY(-2px);
+}
+
+.module-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.lesson-list {
+    list-style: none;
+}
+
+.lesson-list li {
+    margin-bottom: var(--space-xs);
+}
+
+.lesson-list a {
+    display: block;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    transition: background-color 0.15s ease, padding-left 0.15s ease;
+}
+
+.lesson-list a:hover {
+    background-color: var(--rh-gray-100);
+    padding-left: var(--space-lg);
+    text-decoration: none;
+}
+
+.lesson-title {
+    display: block;
+    font-weight: 500;
+}
+
+.lesson-desc {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* ========================================
+ * GETTING STARTED SECTION
+ * ======================================== */
+.getting-started {
+    background-color: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: 0 1px 2px rgba(21, 21, 21, 0.08);
+}
+
+.getting-started h3 {
+    margin-bottom: var(--space-md);
+}
+
+.getting-started ol {
+    margin-left: var(--space-lg);
+}
+
+.getting-started li {
+    margin-bottom: var(--space-sm);
+}
+
+/* ========================================
+ * LESSON LAYOUT (Two Column)
+ * ======================================== */
+.lesson-layout {
+    display: flex;
+    min-height: calc(100vh - 68px);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    background-color: var(--rh-gray-800);
+    padding: var(--space-lg);
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.sidebar h3 {
+    color: var(--rh-gray-300);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: var(--space-md);
+}
+
+.sidebar-module {
+    margin-bottom: var(--space-lg);
+}
+
+.sidebar-module h4 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--rh-red);
+    margin-bottom: var(--space-sm);
+    padding-left: var(--space-sm);
+    border-left: 2px solid var(--rh-red);
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    margin-bottom: 2px;
+}
+
+.sidebar li a {
+    display: block;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    color: var(--rh-gray-300);
+    transition: all 0.15s ease;
+}
+
+.sidebar li a:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--rh-white);
+    text-decoration: none;
+}
+
+.sidebar li.active a {
+    background-color: var(--rh-red);
+    color: var(--rh-white);
+}
+
+/* Lesson Content */
+.lesson-content {
+    flex: 1;
+    padding: var(--space-xl);
+    max-width: 900px;
+    background-color: var(--background-color);
+}
+
+.lesson-header {
+    margin-bottom: var(--space-xl);
+}
+
+.breadcrumb {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.lesson-header h2 {
+    font-size: 1.5rem;
+    margin: var(--space-sm) 0;
+}
+
+.description {
+    color: var(--text-secondary);
+}
+
+/* ========================================
+ * CODE EDITOR
+ * ======================================== */
+.code-section {
+    margin-bottom: var(--space-xl);
+}
+
+.code-section h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-md);
+}
+
+.editor-container {
+    margin-bottom: var(--space-md);
+}
+
+.code-editor {
+    width: 100%;
+    min-height: 300px;
+    font-family: 'Red Hat Mono', 'Monaco', 'Menlo', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: var(--space-md);
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    border: none;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    resize: vertical;
+    tab-size: 4;
+}
+
+.code-editor:focus {
+    outline: 2px solid var(--rh-red);
+    outline-offset: -2px;
+}
+
+.editor-controls {
+    display: flex;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--rh-gray-700);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+/* ========================================
+ * BUTTONS (PatternFly Style)
+ * ======================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm) var(--space-md);
+    font-family: 'Red Hat Text', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn:focus {
+    outline: 2px solid var(--rh-link);
+    outline-offset: 2px;
+}
+
+.btn-primary {
+    background-color: var(--rh-red);
+    color: var(--rh-white);
+}
+
+.btn-primary:hover {
+    background-color: var(--rh-red-dark);
+}
+
+.btn-secondary {
+    background-color: var(--rh-gray-600);
+    color: var(--rh-white);
+}
+
+.btn-secondary:hover {
+    background-color: var(--rh-gray-700);
+}
+
+/* ========================================
+ * OUTPUT BOX
+ * ======================================== */
+.output-section h4 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: var(--space-sm);
+}
+
+.output-box {
+    background-color: var(--rh-black);
+    color: #98D35F;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    min-height: 100px;
+    font-family: 'Red Hat Mono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    border: 1px solid var(--rh-gray-700);
+}
+
+.output-box.error {
+    color: var(--rh-danger-light);
+}
+
+/* ========================================
+ * EXERCISES SECTION
+ * ======================================== */
+.exercises-section {
+    background-color: var(--surface-color);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    margin-top: var(--space-xl);
+    border-left: 4px solid var(--rh-red);
+    box-shadow: 0 1px 2px rgba(21, 21, 21, 0.08);
+}
+
+.exercises-section h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+}
+
+.exercise-list {
+    margin: var(--space-md) 0 var(--space-lg) var(--space-lg);
+}
+
+.exercise-list li {
+    margin-bottom: var(--space-md);
+}
+
+.exercise-prompt {
+    font-weight: 500;
+    margin-bottom: var(--space-xs);
+}
+
+details {
+    margin-top: var(--space-xs);
+}
+
+details summary {
+    cursor: pointer;
+    color: var(--rh-link);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+details summary:hover {
+    color: var(--rh-link-hover);
+}
+
+details code {
+    display: block;
+    margin-top: var(--space-sm);
+    padding: var(--space-sm);
+    background-color: var(--rh-gray-100);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+}
+
+/* Scratch Pad */
+.scratch-pad {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border-color);
+}
+
+.scratch-pad h4 {
+    font-size: 0.875rem;
+    margin-bottom: var(--space-sm);
+}
+
+.scratch-pad .code-editor {
+    min-height: 150px;
+}
+
+.scratch-pad .output-box {
+    min-height: 60px;
+    margin-top: var(--space-sm);
+}
+
+/* ========================================
+ * LESSON NAVIGATION
+ * ======================================== */
+.lesson-nav {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+}
+
+/* ========================================
+ * REFERENCE PAGE
+ * ======================================== */
+.reference-page h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+}
+
+.reference-page > p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+}
+
+.reference-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--space-lg);
+}
+
+.ref-card {
+    background-color: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: 0 1px 2px rgba(21, 21, 21, 0.08);
+    border-top: 3px solid var(--rh-red);
+}
+
+.ref-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-md);
+}
+
+.ref-card pre {
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    padding: var(--space-md);
+    border-radius: var(--radius-sm);
+    overflow-x: auto;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+
+/* ========================================
+ * FOOTER
+ * ======================================== */
+footer {
+    background:
+        linear-gradient(135deg, var(--rh-black) 0%, #1a0000 100%);
+    color: var(--rh-gray-300);
+    text-align: center;
+    padding: var(--space-xl) var(--space-lg);
+    font-size: 0.875rem;
+    position: relative;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--rh-red), #ff4444, var(--rh-red));
+}
+
+footer a {
+    color: var(--rh-red);
+}
+
+footer a:hover {
+    color: var(--rh-white);
+}
+
+/* ========================================
+ * RESPONSIVE DESIGN
+ * ======================================== */
+@media (max-width: 768px) {
+    .lesson-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-bottom: 1px solid var(--rh-gray-700);
+    }
+
+    .lesson-content {
+        padding: var(--space-md);
+    }
+
+    .reference-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: var(--space-md);
+    }
+
+    .hero {
+        padding: var(--space-lg);
+    }
+
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* ========================================
+ * ACCESSIBILITY
+ * ======================================== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* High contrast focus states */
+:focus-visible {
+    outline: 2px solid var(--rh-link);
+    outline-offset: 2px;
+}

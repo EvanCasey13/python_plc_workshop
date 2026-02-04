@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Hat Python Workshop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='images/redhat-logo.svg') }}" alt="Red Hat" class="logo-img">
+                    <span>Python Workshop</span>
+                </a>
+            </div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/reference">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <img src="{{ url_for('static', filename='images/redhat-logo.svg') }}" alt="Red Hat" class="hero-logo">
+            <h2>Learn Python by Doing</h2>
+            <p>No prior experience needed. Start from the basics and work up to real AI tools.</p>
+            <p>Write code, run it, see what happens, and learn from the results.</p>
+            <p style="margin-top: 1rem;"><span class="redhat-badge">Powered by Red Hat</span></p>
+        </section>
+
+        <section class="modules">
+            {% for module_id, module in lessons.items() %}
+            <div class="module-card">
+                <h3>{{ module.title }}</h3>
+                <ul class="lesson-list">
+                    {% for lesson in module.lessons %}
+                    <li>
+                        <a href="/lesson/{{ module_id }}/{{ lesson.id }}">
+                            <span class="lesson-title">{{ lesson.title }}</span>
+                            <span class="lesson-desc">{{ lesson.description }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </section>
+
+        <section class="getting-started">
+            <h3>How This Works</h3>
+            <ol>
+                <li><strong>Pick a lesson</strong> - Start with Hello World if you're new</li>
+                <li><strong>Read the code</strong> - Understand what each line does</li>
+                <li><strong>Run it</strong> - See the output</li>
+                <li><strong>Change something</strong> - Modify the code and run it again</li>
+                <li><strong>Do the exercises</strong> - Practice builds real understanding</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p>Red Hat Python Workshop</p>
+    </footer>
+</body>
+</html>
