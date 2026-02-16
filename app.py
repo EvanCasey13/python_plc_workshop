@@ -1018,8 +1018,9 @@ def reference():
 
 if __name__ == '__main__':
     import os
-    # Use 0.0.0.0 in containers, 127.0.0.1 locally
-    host = os.environ.get('FLASK_HOST', '127.0.0.1')
-    port = int(os.environ.get('FLASK_PORT', 5000))
-    debug = os.environ.get('FLASK_DEBUG', 'true').lower() == 'true'
+    # Use PORT env var (set by Render) or fallback to 5000
+    port = int(os.environ.get('PORT', 5000))
+    # Bind to 0.0.0.0 in production (when PORT is set), localhost otherwise
+    host = '0.0.0.0' if os.environ.get('PORT') else '127.0.0.1'
+    debug = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
     app.run(host=host, port=port, debug=debug)
